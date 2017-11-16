@@ -15,21 +15,21 @@
 #include <iostream>
 #include <regex>
 #include <exception>
-//#include <string>
+#include <string>
 
 using namespace std;
 
-/*
- * 
- */
 int main(int argc, char** argv) {
     
-    regex validIP("([0-255]{1,3}\\.[0-255]{1,3}\\.[0-255]{1,3}\\.[0-255]{1,3})"); //{3}([0-255]{1,3})");
+    regex validIP("((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.)((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.)((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\\.)((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9]))");//"([0-255]{1,3}\\.[0-255]{1,3}\\.[0-255]{1,3}\\.[0-255]{1,3})"); //{3}([0-255]{1,3})");
     
-    string source, destination;
+    string address;
     
-    cin >> source;
-    cin >> destination;
+    getline(cin, address);
+    
+    int pos = address.find_first_of(',');
+    string source = address.substr(0, pos),
+            destination = address.substr(pos+2);
     
     try {
         if(regex_match(source, validIP)) {
@@ -47,6 +47,7 @@ int main(int argc, char** argv) {
     catch(string &exc) {
         cout << exc << endl;
     }
+    
     return 0;
 }
 
